@@ -26,4 +26,10 @@ describe('Timeline', () => {
     expect($thisWeek.classes()).not.toContain('is-active')
     expect($thisMonth.classes()).toContain('is-active')
   })
+
+  it('renders todays post by default', () => {
+    const wrapper = mount(Timeline)
+
+    expect(wrapper.findAll('[data-test="post"]')).toHaveLength(1)
+  })
 })
