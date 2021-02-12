@@ -1,15 +1,33 @@
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import Timeline from './Timeline.vue'
+import Home from './Home.vue'
+import flushPromises from 'flush-promises'
 
-describe('Timeline', () => {
-  it('Renders 3 time periods', () => {
-    const wrapper = mount(Timeline)
+import * as mockData from './mocks'
 
+jest.mock('axios', () => ({
+  get: (url: string) => ({
+    data: [mockData.thisWeek, mockData.todayPost, mockData.thisMonth],
+  })
+}))
+
+describe('Home', () => {
+  it('Renders a loader', () => {
+    const wrapper = mount(Home)
+
+    expect(wrapper.find('[data-test="progress"]').exists()).toBe(true)
+  })
+
+  it('Renders 3 time periods', async () => {
+    const wrapper = mount(Home)
+    await flushPromises()
+    
     expect(wrapper.findAll('[data-test="period"]')).toHaveLength(3)
   })
+  
   it('Updates period when clicked', async () => {
-    const wrapper = mount(Timeline)
+    const wrapper = mount(Home)
+    await flushPromises()
 
     const $today = wrapper.findAll('[data-test="period"]')[0]
     expect($today.classes()).toContain('is-active')
@@ -28,7 +46,8 @@ describe('Timeline', () => {
   })
 
   it('renders todays post by default', async () => {
-    const wrapper = mount(Timeline)
+    const wrapper = mount(Home)
+    await flushPromises()
 
     expect(wrapper.findAll('[data-test="post"]')).toHaveLength(1)
 
@@ -39,7 +58,7 @@ describe('Timeline', () => {
 
     const $thisMonth = wrapper.findAll('[data-test="period"]')[2]
     await $thisMonth.trigger('click')
-    
+
     expect(wrapper.findAll('[data-test="post"]')).toHaveLength(3)
   })
 })

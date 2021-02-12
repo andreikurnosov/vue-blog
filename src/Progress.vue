@@ -1,3 +1,3 @@
 <template>
-  <progress class="progress is-primary is-small" />
+  <progress class="progress is-primary is-small" data-test="progress" />
 </template>
