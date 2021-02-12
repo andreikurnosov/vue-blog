@@ -12,9 +12,14 @@ interface State {
   posts: PostsState
 }
 
+import { todayPost, thisWeek, thisMonth } from './mocks'
+
 const initialPostsState = (): PostsState => ({
-  all: {},
-  ids: [],
+  all: {
+    [todayPost.id]: todayPost,
+    [thisMonth.id]: thisMonth,
+  },
+  ids: [todayPost.id.toString(), thisMonth.id.toString()],
   loaded: false,
 })
 
@@ -29,8 +34,7 @@ class Store {
     this.state = reactive(initialState)
   }
 
-  public getState(): State {
-    // FIXME: some weird error in here
+  public getState() {
     return readonly(this.state)
   }
 
@@ -38,7 +42,6 @@ class Store {
     const response = await axios.get<Post[]>('/posts')
     const ids: string[] = []
     const all: Record<string, Post> = {}
-
     for (const post of response.data) {
       ids.push(post.id.toString())
       all[post.id] = post
@@ -54,3 +57,5 @@ class Store {
 
 const store = new Store(initialState())
 store.getState()
+
+export const useStore = () => store
