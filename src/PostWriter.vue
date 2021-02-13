@@ -24,6 +24,13 @@
         <div v-html="html" />
       </div>
     </div>
+    <div class="columns">
+      <div class="column">
+        <button @click="submit" class="button is-primary is-pulled-right">
+          Submit
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,7 +49,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup(props, ctx) {
     const title = ref(props.post.title)
     const contentEditable = ref<null | HTMLDivElement>(null)
     const markdown = ref(props.post.markdown)
@@ -50,6 +57,16 @@ export default defineComponent({
 
     const handleEdit = () => {
       markdown.value = contentEditable.value.innerText
+    }
+
+    const submit = () => {
+      const post: Post = {
+        ...props.post,
+        title: title.value,
+        markdown: markdown.value,
+        html: html.value,
+      }
+      ctx.emit('save', post)
     }
 
     const options: MarkedOptions = {
@@ -71,6 +88,7 @@ export default defineComponent({
       contentEditable,
       handleEdit,
       markdown,
+      submit,
     }
   },
 })
