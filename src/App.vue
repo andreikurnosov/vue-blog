@@ -4,9 +4,14 @@
     <div class="modal-content">
       <div id="modal"></div>
     </div>
-    <button class="modal-close is-large" aria-label="close" @click="modal.hideModal"></button>
+    <button
+      class="modal-close is-large"
+      aria-label="close"
+      @click="modal.hideModal"
+    ></button>
   </div>
   <div class="section">
+    <FormInput type="text" name="Username" v-model="username" error="This value is required" />
     <div class="container">
       <NavBar />
       <router-view />
@@ -15,16 +20,20 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import NavBar from './NavBar.vue'
+import FormInput from './FormInput.vue'
 import { useModal } from './useModal'
+
 export default defineComponent({
   name: 'App',
   components: {
     NavBar,
+    FormInput,
   },
   setup() {
     const modal = useModal()
+    const username = ref('username')
 
     const style = computed(() => ({
       display: modal.visible.value ? 'block' : 'none',
@@ -32,7 +41,8 @@ export default defineComponent({
 
     return {
       modal,
-      style
+      style,
+      username,
     }
   },
 })
