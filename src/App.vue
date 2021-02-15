@@ -23,7 +23,8 @@ import { computed, defineComponent, ref } from 'vue'
 import NavBar from './NavBar.vue'
 import FormInput from './FormInput.vue'
 import { useModal } from './useModal'
-import {required, length, validate, Status} from './validators'
+import { required, length, validate, Status } from './validators'
+import { provideStore } from './store'
 
 export default defineComponent({
   name: 'App',
@@ -32,9 +33,10 @@ export default defineComponent({
     FormInput,
   },
   setup() {
+    provideStore()
     const modal = useModal()
     const username = ref('username')
-    const usernameStatus= computed<Status>(() => {
+    const usernameStatus = computed<Status>(() => {
       return validate(username.value, [required()])
     })
 
