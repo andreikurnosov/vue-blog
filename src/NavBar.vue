@@ -6,14 +6,18 @@
         <button class="button" @click="modal.showModal">Signup</button>
       </div>
     </div>
-    <teleport to="#modal" v-if="modal.visible"> modal </teleport>
+    <teleport to="#modal" v-if="modal.visible">
+      <Signup />
+    </teleport>
   </nav>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import Signup from './Signup.vue'
 import { useModal } from './useModal'
 export default defineComponent({
+  components: { Signup },
   setup() {
     return {
       modal: useModal(),

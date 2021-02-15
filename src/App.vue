@@ -11,7 +11,6 @@
     ></button>
   </div>
   <div class="section">
-    <FormInput type="text" name="Username" v-model="username" error="This value is required" />
     <div class="container">
       <NavBar />
       <router-view />
@@ -24,6 +23,7 @@ import { computed, defineComponent, ref } from 'vue'
 import NavBar from './NavBar.vue'
 import FormInput from './FormInput.vue'
 import { useModal } from './useModal'
+import {required, length, validate, Status} from './validators'
 
 export default defineComponent({
   name: 'App',
@@ -34,6 +34,9 @@ export default defineComponent({
   setup() {
     const modal = useModal()
     const username = ref('username')
+    const usernameStatus= computed<Status>(() => {
+      return validate(username.value, [required()])
+    })
 
     const style = computed(() => ({
       display: modal.visible.value ? 'block' : 'none',
