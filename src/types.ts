@@ -10,3 +10,11 @@ export interface Post {
   authorId: number
   created: Moment
 }
+
+// intreface UserForm {}
+
+export interface User {
+  id: number
+  username: string
+  password: string
+}

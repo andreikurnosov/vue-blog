@@ -1,6 +1,6 @@
 import { reactive, readonly } from 'vue'
 import axios from 'axios'
-import { Post } from './types'
+import { Post, User } from './types'
 
 interface PostsState {
   ids: string[]
@@ -34,6 +34,10 @@ class Store {
   public getState() {
     return readonly(this.state)
   }
+  async createUser(user: User) {
+    //..
+  }
+
   async createPost(post: Post) {
     const response = await axios.post<Post>('/posts', post)
     this.state.posts.all[response.data.id] = response.data
