@@ -18,3 +18,8 @@ export interface User {
   username: string
   password: string
 }
+
+export interface Author {
+  id: number
+  username: string
+}
