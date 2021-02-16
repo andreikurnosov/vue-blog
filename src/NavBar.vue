@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, markRaw } from 'vue'
 import { useStore } from './store'
 import { useModal } from './useModal'
 import Signup from './Signup.vue'
@@ -28,11 +28,13 @@ export default defineComponent({
 
     const authenticated = computed(() => store.getState().authors.currentUserId)
     const signup = () => {
-      modal.component.value = Signup
+      modal.component.value = markRaw(Signup)
       modal.showModal()
     }
     const signin = () => {
       modal.showModal()
+      // make signIn component
+      // modal.component.value = markRaw(Signin)
     }
     return {
       component: modal.component,
