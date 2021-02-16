@@ -36,7 +36,6 @@ axios.post = async (url: string, payload: Post) => {
 }
 
 import App from './App.vue'
-console.log(App)
 
 const app = createApp(App)
 app.use(router)
