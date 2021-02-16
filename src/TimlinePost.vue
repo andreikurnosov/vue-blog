@@ -1,10 +1,10 @@
 <template>
-  <a class="panel-block" data-test="post">
+  <router-link :to="to" class="panel-block" data-test="post">
     <div>
       <a>{{ post.title }}</a>
       <div>{{ post.created.format('Do MMM') }}</div>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script lang="ts">
@@ -16,6 +16,11 @@ export default defineComponent({
       type: Object as () => Post,
       required: true,
     },
+  },
+  setup(props) {
+    return {
+      to: `post/${props.post.id}`,
+    }
   },
 })
 </script>
