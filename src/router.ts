@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from './Home.vue'
 import NewPost from './NewPost.vue'
 import ShowPost from './ShowPost.vue'
+import EditPost from './EditPost.vue'
 import { store } from './store'
 
 export const router = createRouter({
@@ -21,6 +22,14 @@ export const router = createRouter({
       name: 'NewPost',
       path: '/post/new',
       component: NewPost,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      name: 'EditPost',
+      path: '/post/:id/edit',
+      component: EditPost,
       meta: {
         requiresAuth: true,
       },
