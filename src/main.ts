@@ -15,6 +15,15 @@ axios.get = async (url: string) => {
     })
   }
 }
+// @ts-ignore
+axios.put = async (url: string, payload: Post) => {
+  if (url === '/posts') {
+    await delay(1000)
+    return Promise.resolve({
+      data: payload,
+    })
+  }
+}
 
 // @ts-ignore
 axios.post = async (url: string, payload: Post) => {
