@@ -1,4 +1,10 @@
 <template>
+  <div class="message is-primary is-marginless">
+    <div class="message-header">
+      <p>Posts</p>
+    </div>
+  </div>
+
   <nav class="is-primary panel">
     <p class="panel-tabs">
       <a
@@ -21,7 +27,6 @@ import { useStore } from './store'
 import { Period, Post } from './types'
 import TimelinePost from './TimlinePost.vue'
 import moment from 'moment'
-
 
 export default defineComponent({
   components: {
