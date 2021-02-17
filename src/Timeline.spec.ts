@@ -18,6 +18,16 @@ const createHome = () => {
       provide: {
         store: createStore(),
       },
+      // stubs: {
+      //   TimelinePost: {
+      //     template: '<div />',
+      //   },
+      // },
+      components: {
+        RouterLink: {
+          template: '<div />',
+        },
+      },
     },
   })
 }
